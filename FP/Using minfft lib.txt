@@ -1,0 +1,30 @@
+/* strided one-dimensional real DFT */
+static void
+s_realdft_1d (minfft_real *x, minfft_cmpl *z, int sz, const minfft_aux *a)
+
+auxiliary data makers
+minfft_aux* minfft_mkaux_realdft_1d (int N);
+
+complex(minfft_cmpl),dimension(n1,n2,n3) :: z
+a=minfft_mkaux_dft_3d(n3,n2,n1)
+
+minfft_real is double
+
+void minfft_realdft (minfft_real *x, minfft_cmpl *z, const minfft_aux *a);
+
+void minfft_free_aux (minfft_aux *a);
+
+
+	#include "minfft.h"
+	minfft_real x[N], y[N]; // input and output buffers
+	minfft_aux *a; // aux data
+
+	// prepare aux data
+	a = minfft_mkaux_dft_1d(N);
+
+	// do transforms
+	minfft_realdft(x,y,a);
+	minfft_invrealdft(y,x,a);
+
+	// free aux data
+	minfft_free_aux(a);
